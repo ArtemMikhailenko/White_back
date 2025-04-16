@@ -21,15 +21,15 @@ import { WalletModule } from './wallet/wallet.module';
         
         return {
           uri,
+          // Современные настройки без устаревших параметров
           useNewUrlParser: true,
           useUnifiedTopology: true,
-          // Оптимизации для продакшена
-          poolSize: 10, // Уменьшение размера пула соединений
           connectTimeoutMS: 10000, // 10 секунд на подключение
           socketTimeoutMS: 45000, // 45 секунд на операции
           serverSelectionTimeoutMS: 5000, // 5 секунд на выбор сервера
-          // Минимизируем потребление памяти
-          maxPoolSize: 5,
+          // Правильные настройки пула соединений для MongoDB 4.x/5.x
+          maxConnecting: 2,
+          maxPoolSize: 5, // Вместо устаревшего poolSize
           minPoolSize: 1,
           // Фабрика подключения для логгирования
           connectionFactory: (connection) => {
